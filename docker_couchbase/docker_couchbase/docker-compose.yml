@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  couchbase:
+    image: couchbase:community
+    container_name: couchbase
+    ports:
+      - "8091:8091"  # Административный интерфейс Couchbase
+      - "8092:8092"  # REST API для документов
+      - "8093:8093"  # SQL-запросы (N1QL)
+      - "8094:8094"  # Full Text Search
+      - "11210:11210" # Data порт для работы с документами
+    environment:
+      - COUCHBASE_ADMINISTRATOR_USERNAME=admin  # Установите имя пользователя администратора
+      - COUCHBASE_ADMINISTRATOR_PASSWORD=password  # Установите пароль администратора
+    networks:
+      - couchbase-net
+
+networks:
+  couchbase-net:
+    driver: bridge
